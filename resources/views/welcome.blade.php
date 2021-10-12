@@ -1,0 +1,2 @@
+<x-head/>
+<x-navigation/>
