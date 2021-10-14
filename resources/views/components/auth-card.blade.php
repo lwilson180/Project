@@ -9,7 +9,7 @@
             {{ $slot }}
         </div>
 
-        <div class="fixed max-w-md w-full -mt-10">
+        <div class="absolute max-w-md w-full -mt-10">
             {{ $validation ?? '' }}
         </div>
 

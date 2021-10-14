@@ -21,6 +21,9 @@
                 </button>
             </div>
             <nav class='hidden md:flex space-x-10'>
+                <a href='#' class='text-base font-medium text-gray-500 hover:text-gray-900'>
+                    Home
+                </a>
                 <div x-data='{ dropdownOpen: false }' class='relative'>
                     <button type='button'
                             class='text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
@@ -169,10 +172,7 @@
                     Pricing
                 </a>
                 <a href='#' class='text-base font-medium text-gray-500 hover:text-gray-900'>
-                    Docs
-                </a>
-                <a href='#' class='text-base font-medium text-gray-500 hover:text-gray-900'>
-                    Link
+                    Contact
                 </a>
             </nav>
             @if (Route::has('login'))
@@ -285,15 +285,14 @@
             <div class='py-6 px-5 space-y-6'>
                 <div class='grid grid-cols-2 gap-y-4 gap-x-8'>
                     <a href='#' class='text-base font-medium text-gray-900 hover:text-gray-700'>
+                        Home
+                    </a>
+                    <a href='#' class='text-base font-medium text-gray-900 hover:text-gray-700'>
                         Pricing
                     </a>
 
                     <a href='#' class='text-base font-medium text-gray-900 hover:text-gray-700'>
-                        Docs
-                    </a>
-
-                    <a href='#' class='text-base font-medium text-gray-900 hover:text-gray-700'>
-                        Link
+                        Contact
                     </a>
                 </div>
                 @if (Route::has('login'))

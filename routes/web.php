@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,14 +18,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/sign-in/google', 'Auth\LoginController@google');
-
-Route::get('/sign-in/google/redirect', 'Auth\LoginController@googleRedirect');
-
-
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/learn', function () {
+    return view('learn');
+})->name('learn');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/awards', function () {
+    return view('awards');
+})->name('awards');
+
+Route::get('login/google', [LoginController::class, 'redirectToProvider']);
+Route::get('login/google/callback', [LoginController::class, 'handleProviderCallback']);
 
 
 
