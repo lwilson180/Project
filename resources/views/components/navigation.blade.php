@@ -178,7 +178,17 @@
             @if (Route::has('login'))
                 <div class='hidden md:flex items-center justify-end md:flex-1 lg:w-0'>
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">Dashboard</a>
+                        @can('manage-admin-dashboard')
+                            <a href="{{ route('admin.dashboard.index') }}" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">Dashboard</a>
+                        @endif
+
+                        @can('manage-teacher-dashboard')
+                            <a href="{{ route('teacher.dashboard.index') }}" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">Dashboard</a>
+                        @endif
+
+                        @can('manage-student-dashboard')
+                            <a href="{{ route('student.dashboard.index') }}" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">Dashboard</a>
+                        @endif
                     @else
                         <a href="{{ route('login') }}"
                            class='whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900'>

@@ -5,22 +5,68 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-jet-application-mark class="block h-9 w-auto" />
-                    </a>
+                    @can('manage-admin-dashboard')
+                        <a href="{{ route('admin.dashboard.index') }}">
+                            <x-jet-application-mark class="block h-9 w-auto" />
+                        </a>
+                    @endif
+
+                    @can('manage-teacher-dashboard')
+                            <a href="{{ route('teacher.dashboard.index') }}">
+                                <x-jet-application-mark class="block h-9 w-auto" />
+                            </a>
+                    @endif
+
+                    @can('manage-student-dashboard')
+                        <a href="{{ route('student.dashboard.index') }}">
+                                <x-jet-application-mark class="block h-9 w-auto" />
+                        </a>
+                    @endif
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('learn') }}" :active="request()->routeIs('learn')">
-                        {{ __('Learn') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('awards') }}" :active="request()->routeIs('awards')">
-                        {{ __('Awards') }}
-                    </x-jet-nav-link>
+                    @can('manage-admin-dashboard')
+                        <x-jet-nav-link href="{{ route('admin.dashboard.index') }}" :active="request()->routeIs('admin.dashboard.index')">
+                            {{ __('Dashboard') }}
+                        </x-jet-nav-link>
+                    @endif
+
+                    @can('manage-teacher-dashboard')
+                        <x-jet-nav-link href="{{ route('teacher.dashboard.index') }}" :active="request()->routeIs('teacher.dashboard.index')">
+                            {{ __('Dashboard') }}
+                        </x-jet-nav-link>
+                    @endif
+
+                    @can('manage-student-dashboard')
+                        <x-jet-nav-link href="{{ route('student.dashboard.index') }}" :active="request()->routeIs('student.dashboard.index')">
+                            {{ __('Dashboard') }}
+                        </x-jet-nav-link>
+                    @endif
+
+                    @can('manage-user')
+                        <x-jet-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index')">
+                            {{ __('Users') }}
+                        </x-jet-nav-link>
+                    @endif
+
+                    @can('manage-lesson')
+                        <x-jet-nav-link href="{{ route('teacher.lessons.index') }}" :active="request()->routeIs('teacher.lessons.index')">
+                            {{ __('Lessons') }}
+                        </x-jet-nav-link>
+                    @endif
+
+                    @can('manage-team')
+                        <x-jet-nav-link href="{{ route('teacher.teams.index') }}" :active="request()->routeIs('teacher.teams.index')">
+                            {{ __('Teams') }}
+                        </x-jet-nav-link>
+                    @endif
+
+                    @can('manage-learn')
+                        <x-jet-nav-link href="{{ route('student.learn.index') }}" :active="request()->routeIs('student.learn.index')">
+                            {{ __('Learn') }}
+                        </x-jet-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -31,7 +77,7 @@
                         <x-jet-dropdown align="right" width="60">
                             <x-slot name="trigger">
                                 <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
                                         {{ Auth::user()->currentTeam->name }}
 
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -73,19 +119,19 @@
                             </x-slot>
                         </x-jet-dropdown>
                     </div>
-                @endif
+            @endif
 
-                <!-- Settings Dropdown -->
+            <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
                     <x-jet-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                                <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
                                     <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                                 </button>
                             @else
                                 <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                                         {{ Auth::user()->name }}
 
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -119,9 +165,9 @@
                                 @csrf
 
                                 <x-jet-dropdown-link href="{{ route('logout') }}"
-                                         onclick="event.preventDefault();
+                                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                    {{ __('Log Out') }}
+                                    {{ __('Logout') }}
                                 </x-jet-dropdown-link>
                             </form>
                         </x-slot>
@@ -131,7 +177,7 @@
 
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition">
+                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -144,15 +190,47 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-jet-responsive-nav-link>
-            <x-jet-responsive-nav-link href="{{ route('learn') }}" :active="request()->routeIs('learn')">
-                {{ __('Learn') }}
-            </x-jet-responsive-nav-link>
-            <x-jet-responsive-nav-link href="{{ route('awards') }}" :active="request()->routeIs('awards')">
-                {{ __('Awards') }}
-            </x-jet-responsive-nav-link>
+            @can('manage-admin-dashboard')
+                <x-jet-responsive-nav-link href="{{ route('admin.dashboard.index') }}" :active="request()->routeIs('admin.dashboard.index')">
+                    {{ __('Dashboard') }}
+                </x-jet-responsive-nav-link>
+            @endif
+
+            @can('manage-teacher-dashboard')
+                <x-jet-responsive-nav-link href="{{ route('teacher.dashboard.index') }}" :active="request()->routeIs('teacher.dashboard.index')">
+                    {{ __('Dashboard') }}
+                </x-jet-responsive-nav-link>
+            @endif
+
+            @can('manage-student-dashboard')
+                <x-jet-responsive-nav-link href="{{ route('student.dashboard.index') }}" :active="request()->routeIs('student.dashboard.index')">
+                    {{ __('Dashboard') }}
+                </x-jet-responsive-nav-link>
+            @endif
+
+            @can('manage-user')
+                <x-jet-responsive-nav-link href="{{ route('admin.users.index') }}" :active="request()->routeIs('admin.users.index')">
+                    {{ __('Users') }}
+                </x-jet-responsive-nav-link>
+            @endif
+
+            @can('manage-lesson')
+                <x-jet-responsive-nav-link href="{{ route('teacher.lessons.index') }}" :active="request()->routeIs('teacher.lessons.index')">
+                    {{ __('Lessons') }}
+                </x-jet-responsive-nav-link>
+            @endif
+
+            @can('manage-team')
+                <x-jet-responsive-nav-link href="{{ route('teacher.teams.index') }}" :active="request()->routeIs('teacher.teams.index')">
+                    {{ __('Teams') }}
+                </x-jet-responsive-nav-link>
+            @endif
+
+            @can('manage-learn')
+                <x-jet-responsive-nav-link href="{{ route('student.learn.index') }}" :active="request()->routeIs('student.learn.index')">
+                    {{ __('Learn') }}
+                </x-jet-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
@@ -182,16 +260,47 @@
                     </x-jet-responsive-nav-link>
                 @endif
 
-                <!-- Authentication -->
+            <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
                     <x-jet-responsive-nav-link href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
+                                               onclick="event.preventDefault();
                                     this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('Logout') }}
                     </x-jet-responsive-nav-link>
                 </form>
+
+                <!-- Team Management -->
+                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
+                    <div class="border-t border-gray-200"></div>
+
+                    <div class="block px-4 py-2 text-xs text-gray-400">
+                        {{ __('Manage Team') }}
+                    </div>
+
+                    <!-- Team Settings -->
+                    <x-jet-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" :active="request()->routeIs('teams.show')">
+                        {{ __('Team Settings') }}
+                    </x-jet-responsive-nav-link>
+
+                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
+                        <x-jet-responsive-nav-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')">
+                            {{ __('Create New Team') }}
+                        </x-jet-responsive-nav-link>
+                    @endcan
+
+                    <div class="border-t border-gray-200"></div>
+
+                    <!-- Team Switcher -->
+                    <div class="block px-4 py-2 text-xs text-gray-400">
+                        {{ __('Switch Teams') }}
+                    </div>
+
+                    @foreach (Auth::user()->allTeams() as $team)
+                        <x-jet-switchable-team :team="$team" component="jet-responsive-nav-link" />
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>

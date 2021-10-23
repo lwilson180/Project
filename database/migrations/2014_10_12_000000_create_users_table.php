@@ -17,11 +17,12 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('role')->default('student');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
-            $table->string('profile_photo_path', 2048)->nullable();
+            $table->string('profile_photo_path', 2048)->default('../assets/illustrations/undraw_male_avatar_323b.svg');
             $table->string('provider_id')->nullable();
             $table->timestamps();
         });

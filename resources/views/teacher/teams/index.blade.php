@@ -7,7 +7,7 @@
 
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-            Accessible only for a teacher.
+            Accessible only for a teacher - Teams
         </div>
     </div>
 </x-student-layout>
